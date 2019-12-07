@@ -222,6 +222,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (disabled) {
           return;
         }
+        // TODO: check for interact mode and handle next state
         setState(() {
           _backgroundColor = backgroundColorActive;
         });
@@ -233,6 +234,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (disabled) {
           return;
         }
+        // TODO: check for interact mode and handle next state
         setState(() {
           _backgroundColor = backgroundColorNormal;
         });
