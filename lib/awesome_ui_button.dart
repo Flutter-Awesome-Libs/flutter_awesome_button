@@ -15,6 +15,8 @@ enum InteractMode {
   OPACITY,
 }
 
+enum ButtonSize { SMALL, LARGE, NORMAL }
+
 // ignore: must_be_immutable
 class AwesomeButton extends StatefulWidget {
   _ButtonType _buttonType;
@@ -23,6 +25,9 @@ class AwesomeButton extends StatefulWidget {
   final String text;
   final Key key;
   final Color backgroundColor;
+  final GestureTapUpCallback onTapUp;
+  final GestureTapDownCallback onTapDown;
+  final ButtonSize size;
 
   AwesomeButton({
     this.disabled = false,
@@ -30,6 +35,9 @@ class AwesomeButton extends StatefulWidget {
     @required this.text,
     this.key,
     this.backgroundColor,
+    this.onTapUp,
+    this.onTapDown,
+    this.size = ButtonSize.NORMAL,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -40,6 +48,9 @@ class AwesomeButton extends StatefulWidget {
     @required this.text,
     this.key,
     this.backgroundColor,
+    this.onTapUp,
+    this.onTapDown,
+    this.size = ButtonSize.NORMAL,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
   }
@@ -50,6 +61,9 @@ class AwesomeButton extends StatefulWidget {
     @required this.text,
     this.key,
     this.backgroundColor,
+    this.onTapUp,
+    this.onTapDown,
+    this.size = ButtonSize.NORMAL,
   }) {
     this._buttonType = _ButtonType.DASHED;
   }
@@ -60,6 +74,9 @@ class AwesomeButton extends StatefulWidget {
     @required this.text,
     this.key,
     this.backgroundColor,
+    this.onTapUp,
+    this.onTapDown,
+    this.size = ButtonSize.NORMAL,
   }) {
     this._buttonType = _ButtonType.DESTRUCTIVE;
   }
@@ -72,6 +89,9 @@ class AwesomeButton extends StatefulWidget {
       interactMode: interactMode,
       text: text,
       key: key,
+      onTapUp: onTapUp,
+      onTapDown: onTapDown,
+      size: size,
     );
   }
 }
@@ -83,8 +103,17 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   final String text;
   final Key key;
   final Color backgroundColor;
+  final GestureTapUpCallback onTapUp;
+  final GestureTapDownCallback onTapDown;
+  final ButtonSize size;
 
   // State Vars
+  Color _backgroundColor;
+
+  // Other vars
+  double horizontalPadding;
+  double height;
+  double fontSize;
   Color backgroundColorActive;
   Color backgroundColorNormal;
 
@@ -95,6 +124,9 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     @required this.text,
     this.key,
     this.backgroundColor,
+    this.onTapUp,
+    this.onTapDown,
+    this.size,
   });
 
   Color _getActiveColor(Color baseColor) {
@@ -105,15 +137,38 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     return Color.fromRGBO(red, green, blue, 1);
   }
 
+  void _setDimensionsBasedOnSize() {
+    print(size);
+    switch(size) {
+      case ButtonSize.SMALL:
+        horizontalPadding = 7;
+        height = 24;
+        fontSize = 12;
+        break;
+      case ButtonSize.LARGE:
+        horizontalPadding = 15;
+        height = 40;
+        fontSize = 16;
+        break;
+      case ButtonSize.NORMAL:
+        horizontalPadding = 15;
+        height = 32;
+        fontSize = 14;
+        break;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _setDimensionsBasedOnSize();
 
     // TODO: init all vars
     switch (buttonType) {
       case _ButtonType.DEFAULT:
         backgroundColorNormal = backgroundColor ?? Color(0xFF1890FF);
         backgroundColorActive = _getActiveColor(backgroundColorNormal);
+        _backgroundColor = backgroundColorNormal;
         break;
       case _ButtonType.OUTLINE:
         // TODO: Handle this case.
@@ -127,9 +182,65 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     }
   }
 
+  Widget _renderButtonText(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _renderButton(BuildContext context) {
+    return AnimatedContainer(
+      height: height,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      padding: EdgeInsets.only(
+        left: horizontalPadding,
+        right: horizontalPadding,
+      ),
+      decoration: BoxDecoration(
+        color: _backgroundColor,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
+      child: Center(
+        child: _renderButtonText(context),
+        widthFactor: 1,
+        heightFactor: 1,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+    return GestureDetector(
+      child: _renderButton(context),
+      onTapDown: (TapDownDetails details) {
+        if (disabled) {
+          return;
+        }
+        setState(() {
+          _backgroundColor = backgroundColorActive;
+        });
+        if (onTapDown != null) {
+          onTapDown(details);
+        }
+      },
+      onTapUp: (TapUpDetails details) {
+        if (disabled) {
+          return;
+        }
+        setState(() {
+          _backgroundColor = backgroundColorNormal;
+        });
+        // TODO: perform post click flare if any
+        if (onTapUp != null) {
+          onTapUp(details);
+        }
+      },
+    );
   }
 }
