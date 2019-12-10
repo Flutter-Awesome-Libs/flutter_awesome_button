@@ -262,7 +262,6 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       } else {
         currentOpacity = normalOpacity;
       }
-
       flareBorderOpacity = 0;
       borderWidth = 10;
     });
