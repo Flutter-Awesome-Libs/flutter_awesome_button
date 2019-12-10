@@ -92,6 +92,7 @@ class AwesomeButton extends StatefulWidget {
       onTapUp: onTapUp,
       onTapDown: onTapDown,
       size: size,
+      backgroundColor: backgroundColor,
     );
   }
 }
@@ -111,9 +112,18 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   Color _backgroundColor;
 
   // Other vars
+  int borderAnimDuration = 250;
+  int mainAnimDuration = 150;
   double horizontalPadding;
   double height;
   double fontSize;
+  double normalOpacity = 1;
+  double currentOpacity;
+  double activeOpacity;
+  double borderOpacityNormal = 0.3;
+  double borderWidthNormal = 0;
+  double borderWidth;
+  double flareBorderOpacity;
   Color backgroundColorActive;
   Color backgroundColorNormal;
 
@@ -138,8 +148,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   }
 
   void _setDimensionsBasedOnSize() {
-    print(size);
-    switch(size) {
+    switch (size) {
       case ButtonSize.SMALL:
         horizontalPadding = 7;
         height = 24;
@@ -163,23 +172,13 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     super.initState();
     _setDimensionsBasedOnSize();
 
-    // TODO: init all vars
-    switch (buttonType) {
-      case _ButtonType.DEFAULT:
-        backgroundColorNormal = backgroundColor ?? Color(0xFF1890FF);
-        backgroundColorActive = _getActiveColor(backgroundColorNormal);
-        _backgroundColor = backgroundColorNormal;
-        break;
-      case _ButtonType.OUTLINE:
-        // TODO: Handle this case.
-        break;
-      case _ButtonType.DASHED:
-        // TODO: Handle this case.
-        break;
-      case _ButtonType.DESTRUCTIVE:
-        // TODO: Handle this case.
-        break;
-    }
+    backgroundColorNormal = backgroundColor ?? Color(0xFF1890FF);
+    backgroundColorActive = _getActiveColor(backgroundColorNormal);
+    _backgroundColor = backgroundColorNormal;
+    currentOpacity = normalOpacity;
+    activeOpacity = 0.3;
+    flareBorderOpacity = borderOpacityNormal;
+    borderWidth = borderWidthNormal;
   }
 
   Widget _renderButtonText(BuildContext context) {
@@ -194,22 +193,30 @@ class _AwesomeButtonState extends State<AwesomeButton> {
 
   Widget _renderButton(BuildContext context) {
     return AnimatedContainer(
-      height: height,
-      duration: Duration(
-        milliseconds: 200,
-      ),
-      padding: EdgeInsets.only(
-        left: horizontalPadding,
-        right: horizontalPadding,
-      ),
+      duration: Duration(milliseconds: borderAnimDuration),
       decoration: BoxDecoration(
-        color: _backgroundColor,
+        color: _backgroundColor.withOpacity(flareBorderOpacity),
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
-      child: Center(
-        child: _renderButtonText(context),
-        widthFactor: 1,
-        heightFactor: 1,
+      padding: EdgeInsets.all(borderWidth),
+      child: AnimatedContainer(
+        height: height,
+        duration: Duration(
+          milliseconds: mainAnimDuration,
+        ),
+        padding: EdgeInsets.only(
+          left: horizontalPadding,
+          right: horizontalPadding,
+        ),
+        decoration: BoxDecoration(
+          color: _backgroundColor.withOpacity(currentOpacity),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        child: Center(
+          child: _renderButtonText(context),
+          widthFactor: 1,
+          heightFactor: 1,
+        ),
       ),
     );
   }
@@ -222,9 +229,13 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (disabled) {
           return;
         }
-        // TODO: check for interact mode and handle next state
+
         setState(() {
-          _backgroundColor = backgroundColorActive;
+          if (interactMode == InteractMode.DEFAULT) {
+            _backgroundColor = backgroundColorActive;
+          } else {
+            currentOpacity = activeOpacity;
+          }
         });
         if (onTapDown != null) {
           onTapDown(details);
@@ -234,15 +245,38 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (disabled) {
           return;
         }
-        // TODO: check for interact mode and handle next state
-        setState(() {
-          _backgroundColor = backgroundColorNormal;
-        });
-        // TODO: perform post click flare if any
+
+        _onTapUp();
+
         if (onTapUp != null) {
           onTapUp(details);
         }
       },
     );
+  }
+
+  void _onTapUp() async {
+    setState(() {
+      if (interactMode == InteractMode.DEFAULT) {
+        _backgroundColor = backgroundColorNormal;
+      } else {
+        currentOpacity = normalOpacity;
+      }
+
+      flareBorderOpacity = 0;
+      borderWidth = 10;
+    });
+
+    await Future.delayed(Duration(milliseconds: borderAnimDuration));
+
+    setState(() {
+      borderWidth = borderWidthNormal;
+    });
+
+    await Future.delayed(Duration(milliseconds: borderAnimDuration));
+
+    setState(() {
+      flareBorderOpacity = borderOpacityNormal;
+    });
   }
 }

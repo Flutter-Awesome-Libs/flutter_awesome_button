@@ -26,14 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             AwesomeButton(
-              text: "Sample",
+              text: "Sample Button Text",
+              size: ButtonSize.LARGE,
+              backgroundColor: Colors.redAccent,
+              interactMode: InteractMode.OPACITY,
             ),
           ],
         ),
