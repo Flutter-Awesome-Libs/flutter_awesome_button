@@ -13,7 +13,7 @@ enum InteractMode {
   OPACITY,
 }
 
-enum ButtonSize { SMALL, LARGE, NORMAL }
+enum ButtonSize { SMALL, LARGE, NORMAL, FULL_WIDTH }
 
 // ignore: must_be_immutable
 class AwesomeButton extends StatefulWidget {
@@ -168,6 +168,11 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         height = 32;
         fontSize = 14;
         break;
+      case ButtonSize.FULL_WIDTH:
+        horizontalPadding = 15;
+        height = 32;
+        fontSize = 14;
+        break;
     }
   }
 
@@ -235,7 +240,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           ),
           child: Center(
             child: _renderButtonText(context),
-            widthFactor: 1,
+            widthFactor: size == ButtonSize.FULL_WIDTH ? null : 1,
             heightFactor: 1,
           ),
         ),

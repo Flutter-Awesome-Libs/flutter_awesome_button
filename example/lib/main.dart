@@ -36,11 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AwesomeButton.destructive(
-              text: "Sample Button Text",
-              size: ButtonSize.LARGE,
-              backgroundColor: Colors.redAccent,
-              interactMode: InteractMode.OPACITY,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AwesomeButton.destructive(
+                text: "Sample Button Text",
+                size: ButtonSize.FULL_WIDTH,
+                backgroundColor: Colors.redAccent,
+                interactMode: InteractMode.OPACITY,
+              ),
             ),
           ],
         ),
