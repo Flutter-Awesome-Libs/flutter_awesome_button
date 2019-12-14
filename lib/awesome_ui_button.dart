@@ -6,7 +6,6 @@ import 'dart:math' show max;
 enum _ButtonType {
   DEFAULT,
   OUTLINE,
-  DESTRUCTIVE,
 }
 
 enum InteractMode {
@@ -29,6 +28,7 @@ class AwesomeButton extends StatefulWidget {
   final ButtonSize size;
 
   bool _isForcedOpacity = false;
+  bool _isDestructive = false;
 
   AwesomeButton({
     this.disabled = false,
@@ -67,7 +67,8 @@ class AwesomeButton extends StatefulWidget {
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
   }) {
-    this._buttonType = _ButtonType.DESTRUCTIVE;
+    this._buttonType = _ButtonType.DEFAULT;
+    this._isDestructive = true;
   }
 
   @override
@@ -81,7 +82,7 @@ class AwesomeButton extends StatefulWidget {
       onTapUp: onTapUp,
       onTapDown: onTapDown,
       size: size,
-      backgroundColor: backgroundColor,
+      backgroundColor: _isDestructive ? Color(0xFFFF4D4F) : backgroundColor,
     );
   }
 }
