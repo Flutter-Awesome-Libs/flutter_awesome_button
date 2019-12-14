@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await Future.delayed(Duration(seconds: 5));
     this.setState(() {
       counter = 1;
-//      disabled = true;
+      disabled = true;
       size = ButtonSize.NORMAL;
       mode = InteractMode.OPACITY;
       text = "Sample text after";
@@ -71,6 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 interactMode: mode,
                 disabled: disabled,
                 textColor: textColor,
+                onTapUp: (_) {
+                  print("Tap up");
+                },
               ),
             ),
           ],

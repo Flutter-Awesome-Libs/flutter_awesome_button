@@ -146,7 +146,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     _setDimensionsBasedOnSize();
 
     Color previousBgNormal = backgroundColorNormal;
-    backgroundColorNormal = widget.backgroundColor ?? (widget._isDestructive ? Color(0xFFFF4D4F) : Color(0xFF1890FF));
+    backgroundColorNormal = widget.backgroundColor ??
+        (widget._isDestructive ? Color(0xFFFF4D4F) : Color(0xFF1890FF));
     backgroundColorActive = _getActiveColor(backgroundColorNormal);
 
     if (backgroundColorNormal != previousBgNormal) {
@@ -154,7 +155,9 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       _mainBorderColor = _backgroundColor;
     }
 
-    _textColor = widget._buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor;
+    _textColor = widget._buttonType == _ButtonType.DEFAULT
+        ? Colors.white
+        : _backgroundColor;
     _textColor = widget.textColor ?? _textColor;
 
     activeOpacity = 0.3;
@@ -242,7 +245,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           return;
         }
         setState(() {
-          if (widget.interactMode == InteractMode.DEFAULT && !widget._isForcedOpacity) {
+          if (widget.interactMode == InteractMode.DEFAULT &&
+              !widget._isForcedOpacity) {
             _backgroundColor = backgroundColorActive;
           } else {
             currentOpacity = activeOpacity;
