@@ -35,7 +35,7 @@ class AwesomeButton extends StatefulWidget {
     this.disabled = false,
     this.interactMode = InteractMode.DEFAULT,
     @required this.text,
-    this.key,
+    @required this.key,
     this.backgroundColor,
     this.onTapUp,
     this.onTapDown,
@@ -77,33 +77,11 @@ class AwesomeButton extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _AwesomeButtonState(
-      buttonType: _buttonType,
-      disabled: disabled,
-      interactMode: _isForcedOpacity ? InteractMode.OPACITY : interactMode,
-      text: text,
-      key: key,
-      onTapUp: onTapUp,
-      onTapDown: onTapDown,
-      size: size,
-      backgroundColor: _isDestructive ? Color(0xFFFF4D4F) : backgroundColor,
-      textColor: _isDestructive ? Colors.white : textColor,
-    );
+    return _AwesomeButtonState();
   }
 }
 
 class _AwesomeButtonState extends State<AwesomeButton> {
-  final _ButtonType buttonType;
-  final bool disabled;
-  final InteractMode interactMode;
-  final String text;
-  final Key key;
-  final Color backgroundColor;
-  final GestureTapUpCallback onTapUp;
-  final GestureTapDownCallback onTapDown;
-  final ButtonSize size;
-  final Color textColor;
-
   // State Vars
   Color _backgroundColor;
 
@@ -129,19 +107,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   Color backgroundColorActive;
   Color backgroundColorNormal;
   Color _textColor;
-
-  _AwesomeButtonState({
-    this.buttonType,
-    this.disabled = false,
-    this.interactMode = InteractMode.DEFAULT,
-    @required this.text,
-    this.key,
-    this.backgroundColor,
-    this.onTapUp,
-    this.onTapDown,
-    this.size,
-    this.textColor,
-  });
+  Color _mainBorderColor;
 
   Color _getActiveColor(Color baseColor) {
     int red = max(baseColor.red - 20, 0);
@@ -152,7 +118,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   }
 
   void _setDimensionsBasedOnSize() {
-    switch (size) {
+    switch (widget.size) {
       case ButtonSize.SMALL:
         horizontalPadding = 7;
         height = 24;
@@ -176,27 +142,44 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     }
   }
 
+  void _initVars() {
+    _setDimensionsBasedOnSize();
+
+    Color previousBgNormal = backgroundColorNormal;
+    backgroundColorNormal = widget.backgroundColor ?? (widget._isDestructive ? Color(0xFFFF4D4F) : Color(0xFF1890FF));
+    backgroundColorActive = _getActiveColor(backgroundColorNormal);
+
+    if (backgroundColorNormal != previousBgNormal) {
+      _backgroundColor = backgroundColorNormal;
+      _mainBorderColor = _backgroundColor;
+    }
+
+    _textColor = widget._buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor;
+    _textColor = widget.textColor ?? _textColor;
+
+    activeOpacity = 0.3;
+
+    if (widget.disabled) {
+      _backgroundColor = Color(0xFFF5F5F5);
+      _textColor = Colors.black.withOpacity(0.25);
+      _mainBorderColor = Color(0xFFD9D9D9);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _setDimensionsBasedOnSize();
-
-    backgroundColorNormal = backgroundColor ?? Color(0xFF1890FF);
-    backgroundColorActive = _getActiveColor(backgroundColorNormal);
+    _initVars();
     _backgroundColor = backgroundColorNormal;
-    _textColor = buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor;
-    _textColor = textColor ?? _textColor;
-
-    currentOpacity = normalOpacity;
-    activeOpacity = 0.3;
-    flareBorderOpacity = borderOpacityNormal;
-
+    _mainBorderColor = _backgroundColor;
     borderWidth = borderWidthNormal;
+    currentOpacity = normalOpacity;
+    flareBorderOpacity = borderOpacityNormal;
   }
 
   Widget _renderButtonText(BuildContext context) {
     return Text(
-      text,
+      widget.text,
       style: TextStyle(
         fontSize: fontSize,
         color: _textColor,
@@ -210,7 +193,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
         border: Border.all(
-          color: _backgroundColor.withOpacity(flareBorderOpacity),
+          color: _mainBorderColor.withOpacity(flareBorderOpacity),
           width: borderWidth,
         ),
       ),
@@ -229,18 +212,18 @@ class _AwesomeButtonState extends State<AwesomeButton> {
             right: horizontalPadding,
           ),
           decoration: BoxDecoration(
-            color: buttonType == _ButtonType.DEFAULT
+            color: widget._buttonType == _ButtonType.DEFAULT
                 ? _backgroundColor
                 : Colors.transparent,
             borderRadius: BorderRadius.all(Radius.circular(4)),
             border: Border.all(
-              width: buttonType == _ButtonType.DEFAULT ? 0 : 1,
-              color: _backgroundColor,
+              width: widget._buttonType == _ButtonType.DEFAULT ? 0 : 1,
+              color: _mainBorderColor,
             ),
           ),
           child: Center(
             child: _renderButtonText(context),
-            widthFactor: size == ButtonSize.FULL_WIDTH ? null : 1,
+            widthFactor: widget.size == ButtonSize.FULL_WIDTH ? null : 1,
             heightFactor: 1,
           ),
         ),
@@ -250,33 +233,34 @@ class _AwesomeButtonState extends State<AwesomeButton> {
 
   @override
   Widget build(BuildContext context) {
+    _initVars();
     return GestureDetector(
+      key: widget.key,
       child: _renderButton(context),
       onTapDown: (TapDownDetails details) {
-        if (disabled) {
+        if (widget.disabled) {
           return;
         }
-
         setState(() {
-          if (interactMode == InteractMode.DEFAULT) {
+          if (widget.interactMode == InteractMode.DEFAULT && !widget._isForcedOpacity) {
             _backgroundColor = backgroundColorActive;
           } else {
             currentOpacity = activeOpacity;
           }
         });
-        if (onTapDown != null) {
-          onTapDown(details);
+        if (widget.onTapDown != null) {
+          widget.onTapDown(details);
         }
       },
       onTapUp: (TapUpDetails details) {
-        if (disabled) {
+        if (widget.disabled) {
           return;
         }
 
         _onTapUp();
 
-        if (onTapUp != null) {
-          onTapUp(details);
+        if (widget.onTapUp != null) {
+          widget.onTapUp(details);
         }
       },
     );
@@ -284,25 +268,30 @@ class _AwesomeButtonState extends State<AwesomeButton> {
 
   void _onTapUp() async {
     setState(() {
-      if (interactMode == InteractMode.DEFAULT) {
+      if (widget.interactMode == InteractMode.DEFAULT) {
         _backgroundColor = backgroundColorNormal;
       } else {
         currentOpacity = normalOpacity;
       }
-      flareBorderOpacity = 0;
-      borderWidth = 10;
+
+      if (widget.size != ButtonSize.FULL_WIDTH) {
+        flareBorderOpacity = 0;
+        borderWidth = 10;
+      }
     });
 
-    await Future.delayed(Duration(milliseconds: borderAnimDuration));
+    if (widget.size != ButtonSize.FULL_WIDTH) {
+      await Future.delayed(Duration(milliseconds: borderAnimDuration));
 
-    setState(() {
-      borderWidth = borderWidthNormal;
-    });
+      setState(() {
+        borderWidth = borderWidthNormal;
+      });
 
-    await Future.delayed(Duration(milliseconds: borderAnimDuration));
+      await Future.delayed(Duration(milliseconds: borderAnimDuration));
 
-    setState(() {
-      flareBorderOpacity = borderOpacityNormal;
-    });
+      setState(() {
+        flareBorderOpacity = borderOpacityNormal;
+      });
+    }
   }
 }

@@ -26,8 +26,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int counter = 0;
+  bool disabled = false;
+  ButtonSize size = ButtonSize.FULL_WIDTH;
+  InteractMode mode = InteractMode.DEFAULT;
+  String text = "Sample text before";
+  Color bgColor = Colors.redAccent;
+  Color textColor = Colors.white;
+
+  void doDelayed() async {
+    await Future.delayed(Duration(seconds: 5));
+    this.setState(() {
+      counter = 1;
+//      disabled = true;
+      size = ButtonSize.NORMAL;
+      mode = InteractMode.OPACITY;
+      text = "Sample text after";
+      bgColor = Colors.deepPurpleAccent;
+      textColor = Colors.black;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (counter == 0) {
+      doDelayed();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -38,11 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AwesomeButton.destructive(
-                text: "Sample Button Text",
-                size: ButtonSize.FULL_WIDTH,
-                backgroundColor: Colors.redAccent,
-                interactMode: InteractMode.OPACITY,
+              child: AwesomeButton(
+                key: Key("SOME KEY"),
+                text: text,
+                size: size,
+                backgroundColor: bgColor,
+                interactMode: mode,
+                disabled: disabled,
+                textColor: textColor,
               ),
             ),
           ],
