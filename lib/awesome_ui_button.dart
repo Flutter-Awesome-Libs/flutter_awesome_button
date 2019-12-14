@@ -111,19 +111,25 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   // State Vars
   Color _backgroundColor;
 
-  // Other vars
+  // Animation durations
   int borderAnimDuration = 250;
   int mainAnimDuration = 150;
-  double horizontalPadding;
-  double height;
-  double fontSize;
-  double normalOpacity = 1;
   double currentOpacity;
-  double activeOpacity;
-  double borderOpacityNormal = 0.3;
-  double borderWidthNormal = 0;
   double borderWidth;
   double flareBorderOpacity;
+
+  // Size dimensions
+  double horizontalPadding;
+  double height;
+  double borderWidthNormal = 0;
+  double fontSize;
+
+  // Opacity values
+  double normalOpacity = 1;
+  double activeOpacity;
+  double borderOpacityNormal = 0.3;
+
+  // Background colors
   Color backgroundColorActive;
   Color backgroundColorNormal;
 
@@ -195,10 +201,12 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     return AnimatedContainer(
       duration: Duration(milliseconds: borderAnimDuration),
       decoration: BoxDecoration(
-        color: _backgroundColor.withOpacity(flareBorderOpacity),
         borderRadius: BorderRadius.all(Radius.circular(4)),
+        border: Border.all(
+          color: _backgroundColor.withOpacity(flareBorderOpacity),
+          width: borderWidth,
+        ),
       ),
-      padding: EdgeInsets.all(borderWidth),
       child: AnimatedContainer(
         height: height,
         duration: Duration(
