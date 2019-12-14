@@ -26,6 +26,7 @@ class AwesomeButton extends StatefulWidget {
   final GestureTapUpCallback onTapUp;
   final GestureTapDownCallback onTapDown;
   final ButtonSize size;
+  final Color textColor;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -39,6 +40,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapUp,
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
+    this.textColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -52,6 +54,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapUp,
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
+    this.textColor,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -66,6 +69,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapUp,
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
+    this.textColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -83,6 +87,7 @@ class AwesomeButton extends StatefulWidget {
       onTapDown: onTapDown,
       size: size,
       backgroundColor: _isDestructive ? Color(0xFFFF4D4F) : backgroundColor,
+      textColor: _isDestructive ? Colors.white : textColor,
     );
   }
 }
@@ -97,6 +102,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   final GestureTapUpCallback onTapUp;
   final GestureTapDownCallback onTapDown;
   final ButtonSize size;
+  final Color textColor;
 
   // State Vars
   Color _backgroundColor;
@@ -119,9 +125,10 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   double activeOpacity;
   double borderOpacityNormal = 0.3;
 
-  // Background colors
+  // Colors
   Color backgroundColorActive;
   Color backgroundColorNormal;
+  Color _textColor;
 
   _AwesomeButtonState({
     this.buttonType,
@@ -133,6 +140,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     this.onTapUp,
     this.onTapDown,
     this.size,
+    this.textColor,
   });
 
   Color _getActiveColor(Color baseColor) {
@@ -171,9 +179,13 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     backgroundColorNormal = backgroundColor ?? Color(0xFF1890FF);
     backgroundColorActive = _getActiveColor(backgroundColorNormal);
     _backgroundColor = backgroundColorNormal;
+    _textColor = buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor;
+    _textColor = textColor ?? _textColor;
+
     currentOpacity = normalOpacity;
     activeOpacity = 0.3;
     flareBorderOpacity = borderOpacityNormal;
+
     borderWidth = borderWidthNormal;
   }
 
@@ -182,8 +194,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       text,
       style: TextStyle(
         fontSize: fontSize,
-        color:
-            buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor,
+        color: _textColor,
       ),
     );
   }
