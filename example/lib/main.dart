@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AwesomeButton(
+            AwesomeButton.outline(
               text: "Sample Button Text",
               size: ButtonSize.LARGE,
               backgroundColor: Colors.redAccent,

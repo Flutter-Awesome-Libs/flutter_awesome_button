@@ -6,7 +6,6 @@ import 'dart:math' show max;
 enum _ButtonType {
   DEFAULT,
   OUTLINE,
-  DASHED,
   DESTRUCTIVE,
 }
 
@@ -28,6 +27,8 @@ class AwesomeButton extends StatefulWidget {
   final GestureTapUpCallback onTapUp;
   final GestureTapDownCallback onTapDown;
   final ButtonSize size;
+
+  bool _isForcedOpacity = false;
 
   AwesomeButton({
     this.disabled = false,
@@ -53,19 +54,7 @@ class AwesomeButton extends StatefulWidget {
     this.size = ButtonSize.NORMAL,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
-  }
-
-  AwesomeButton.dashed({
-    this.disabled = false,
-    this.interactMode = InteractMode.DEFAULT,
-    @required this.text,
-    this.key,
-    this.backgroundColor,
-    this.onTapUp,
-    this.onTapDown,
-    this.size = ButtonSize.NORMAL,
-  }) {
-    this._buttonType = _ButtonType.DASHED;
+    this._isForcedOpacity = true;
   }
 
   AwesomeButton.destructive({
@@ -86,7 +75,7 @@ class AwesomeButton extends StatefulWidget {
     return _AwesomeButtonState(
       buttonType: _buttonType,
       disabled: disabled,
-      interactMode: interactMode,
+      interactMode: _isForcedOpacity ? InteractMode.OPACITY : interactMode,
       text: text,
       key: key,
       onTapUp: onTapUp,
@@ -192,7 +181,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       text,
       style: TextStyle(
         fontSize: fontSize,
-        color: Colors.white,
+        color:
+            buttonType == _ButtonType.DEFAULT ? Colors.white : _backgroundColor,
       ),
     );
   }
@@ -207,23 +197,35 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           width: borderWidth,
         ),
       ),
-      child: AnimatedContainer(
-        height: height,
+      child: AnimatedOpacity(
+        opacity: currentOpacity,
         duration: Duration(
           milliseconds: mainAnimDuration,
         ),
-        padding: EdgeInsets.only(
-          left: horizontalPadding,
-          right: horizontalPadding,
-        ),
-        decoration: BoxDecoration(
-          color: _backgroundColor.withOpacity(currentOpacity),
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-        ),
-        child: Center(
-          child: _renderButtonText(context),
-          widthFactor: 1,
-          heightFactor: 1,
+        child: AnimatedContainer(
+          height: height,
+          duration: Duration(
+            milliseconds: mainAnimDuration,
+          ),
+          padding: EdgeInsets.only(
+            left: horizontalPadding,
+            right: horizontalPadding,
+          ),
+          decoration: BoxDecoration(
+            color: buttonType == _ButtonType.DEFAULT
+                ? _backgroundColor
+                : Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            border: Border.all(
+              width: buttonType == _ButtonType.DEFAULT ? 0 : 1,
+              color: _backgroundColor,
+            ),
+          ),
+          child: Center(
+            child: _renderButtonText(context),
+            widthFactor: 1,
+            heightFactor: 1,
+          ),
         ),
       ),
     );
