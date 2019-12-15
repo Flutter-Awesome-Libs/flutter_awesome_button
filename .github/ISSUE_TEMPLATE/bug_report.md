@@ -22,9 +22,9 @@ If applicable, add screenshots or GIFs to help explain your problem.
 ## Configuration
 
 #### Platform
-[ ] :robot: Android
-[ ] :iphone: iOS
-[ ] :computer: Web
+- [ ] :robot: Android
+- [ ] :iphone: iOS
+- [ ] :computer: Web
 
 ## Additional context
 Add any other context about the problem here.
