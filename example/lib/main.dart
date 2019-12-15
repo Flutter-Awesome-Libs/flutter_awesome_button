@@ -33,17 +33,19 @@ class _MyHomePageState extends State<MyHomePage> {
   String text = "Sample text before";
   Color bgColor = Colors.redAccent;
   Color textColor = Colors.white;
+  double textSize;
 
   void doDelayed() async {
     await Future.delayed(Duration(seconds: 5));
     this.setState(() {
-      counter = 1;
-      disabled = true;
+//      counter = 1;
+//      disabled = true;
       size = ButtonSize.NORMAL;
-      mode = InteractMode.OPACITY;
-      text = "Sample text after";
-      bgColor = Colors.deepPurpleAccent;
-      textColor = Colors.black;
+//      mode = InteractMode.OPACITY;
+//      text = "Sample text after";
+//      bgColor = Colors.deepPurpleAccent;
+//      textColor = Colors.black;
+      textSize = 24;
     });
   }
 
@@ -71,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 interactMode: mode,
                 disabled: disabled,
                 textColor: textColor,
+                fontSize: textSize,
                 onTapUp: (_) {
                   print("Tap up");
                 },

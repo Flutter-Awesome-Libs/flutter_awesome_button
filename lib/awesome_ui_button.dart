@@ -27,6 +27,7 @@ class AwesomeButton extends StatefulWidget {
   final GestureTapDownCallback onTapDown;
   final ButtonSize size;
   final Color textColor;
+  final double fontSize;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -41,6 +42,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
     this.textColor,
+    this.fontSize,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -55,6 +57,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
     this.textColor,
+    this.fontSize,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -70,6 +73,7 @@ class AwesomeButton extends StatefulWidget {
     this.onTapDown,
     this.size = ButtonSize.NORMAL,
     this.textColor,
+    this.fontSize,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -140,6 +144,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         fontSize = 14;
         break;
     }
+
+    fontSize = widget.fontSize ?? fontSize;
   }
 
   void _initVars() {
@@ -206,13 +212,17 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           milliseconds: mainAnimDuration,
         ),
         child: AnimatedContainer(
-          height: height,
+        constraints: BoxConstraints(
+          minHeight: height,
+        ),
           duration: Duration(
             milliseconds: mainAnimDuration,
           ),
           padding: EdgeInsets.only(
             left: horizontalPadding,
             right: horizontalPadding,
+            top: 6,
+            bottom: 6,
           ),
           decoration: BoxDecoration(
             color: widget._buttonType == _ButtonType.DEFAULT
