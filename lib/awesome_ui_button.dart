@@ -174,7 +174,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     Color previousBgNormal = backgroundColorNormal;
     backgroundColorNormal = widget.backgroundColor ??
         (widget._isDestructive ? Color(0xFFFF4D4F) : Color(0xFF1890FF));
-    backgroundColorActive = widget.activeColor ?? _getActiveColor(backgroundColorNormal);
+    backgroundColorActive =
+        widget.activeColor ?? _getActiveColor(backgroundColorNormal);
 
     if (backgroundColorNormal != previousBgNormal) {
       _backgroundColor = backgroundColorNormal;
@@ -217,7 +218,6 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   }
 
   EdgeInsets _getButtonPadding() {
-
     if (widget.padding != null) {
       return widget.padding;
     }
@@ -247,7 +247,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     return AnimatedContainer(
       duration: Duration(milliseconds: borderAnimDuration),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
+        borderRadius:
+            BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
         border: Border.all(
           color: _mainBorderColor.withOpacity(flareBorderOpacity),
           width: borderWidth,

@@ -51,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 //      bgColor = Colors.deepPurpleAccent;
 //      textColor = Colors.black;
 //        padding = EdgeInsets.all(16);
-        borderRadius = 16;
-        activeOpacity = 0;
-        activeColor = Colors.green;
+      borderRadius = 16;
+      activeOpacity = 0;
+      activeColor = Colors.green;
     });
   }
 
