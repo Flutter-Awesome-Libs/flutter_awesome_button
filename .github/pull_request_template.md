@@ -19,3 +19,6 @@ Reference the issue that this pull request addresses, there needs to be at least
 ## Release checks
 - [ ] No existing test cases were changed and no test cases failed(this is not a breaking change)
 - [ ] Yes existing test cases were changed or failed(this is a breaking change)
+
+## Analysis output
+Please provide the output of the `flutter analyze` command after you made changes. This is to ensure that all warnings from flutter static analyses has been solved, failure in doing so will lead in us asking you to solve them first.
