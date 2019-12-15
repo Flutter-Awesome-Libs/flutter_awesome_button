@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int counter = 0;
   bool disabled = false;
   ButtonSize size = ButtonSize.NORMAL;
-  InteractMode mode = InteractMode.OPACITY;
+  InteractMode mode = InteractMode.DEFAULT;
   String text = "Sample text before";
   Color bgColor = Colors.redAccent;
   Color textColor = Colors.white;
@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color disabledColor;
   double borderRadius;
   double activeOpacity;
+  Color activeColor;
 
   void doDelayed() async {
     await Future.delayed(Duration(seconds: 5));
@@ -52,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //        padding = EdgeInsets.all(16);
         borderRadius = 16;
         activeOpacity = 0;
+        activeColor = Colors.green;
     });
   }
 
@@ -84,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 disabledColor: disabledColor,
                 borderRadius: borderRadius,
                 activeOpacity: activeOpacity,
+                activeColor: activeColor,
                 onTapUp: (_) {
                   print("Tap up");
                 },

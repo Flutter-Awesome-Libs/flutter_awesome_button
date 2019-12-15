@@ -32,6 +32,7 @@ class AwesomeButton extends StatefulWidget {
   final Color disabledColor;
   final double borderRadius;
   final double activeOpacity;
+  final Color activeColor;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -51,6 +52,7 @@ class AwesomeButton extends StatefulWidget {
     this.disabledColor,
     this.borderRadius,
     this.activeOpacity,
+    this.activeColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -70,6 +72,7 @@ class AwesomeButton extends StatefulWidget {
     this.disabledColor,
     this.borderRadius,
     this.activeOpacity,
+    this.activeColor,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -90,6 +93,7 @@ class AwesomeButton extends StatefulWidget {
     this.disabledColor,
     this.borderRadius,
     this.activeOpacity,
+    this.activeColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -170,7 +174,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     Color previousBgNormal = backgroundColorNormal;
     backgroundColorNormal = widget.backgroundColor ??
         (widget._isDestructive ? Color(0xFFFF4D4F) : Color(0xFF1890FF));
-    backgroundColorActive = _getActiveColor(backgroundColorNormal);
+    backgroundColorActive = widget.activeColor ?? _getActiveColor(backgroundColorNormal);
 
     if (backgroundColorNormal != previousBgNormal) {
       _backgroundColor = backgroundColorNormal;
