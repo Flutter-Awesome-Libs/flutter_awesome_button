@@ -30,6 +30,7 @@ class AwesomeButton extends StatefulWidget {
   final double fontSize;
   final EdgeInsets padding;
   final Color disabledColor;
+  final double borderRadius;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -47,6 +48,7 @@ class AwesomeButton extends StatefulWidget {
     this.fontSize,
     this.padding,
     this.disabledColor,
+    this.borderRadius,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -64,6 +66,7 @@ class AwesomeButton extends StatefulWidget {
     this.fontSize,
     this.padding,
     this.disabledColor,
+    this.borderRadius,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -82,6 +85,7 @@ class AwesomeButton extends StatefulWidget {
     this.fontSize,
     this.padding,
     this.disabledColor,
+    this.borderRadius,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -223,7 +227,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       color: widget._buttonType == _ButtonType.DEFAULT
           ? _backgroundColor
           : Colors.transparent,
-      borderRadius: BorderRadius.all(Radius.circular(4)),
+      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
       border: Border.all(
         width: widget._buttonType == _ButtonType.DEFAULT ? 0 : 1,
         color: _mainBorderColor,
@@ -235,7 +239,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     return AnimatedContainer(
       duration: Duration(milliseconds: borderAnimDuration),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+        borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
         border: Border.all(
           color: _mainBorderColor.withOpacity(flareBorderOpacity),
           width: borderWidth,

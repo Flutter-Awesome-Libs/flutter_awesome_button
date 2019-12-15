@@ -36,18 +36,20 @@ class _MyHomePageState extends State<MyHomePage> {
   double textSize;
   EdgeInsets padding;
   Color disabledColor;
+  double borderRadius;
 
   void doDelayed() async {
     await Future.delayed(Duration(seconds: 5));
     this.setState(() {
 //      counter = 1;
-        disabled = true;
+//        disabled = true;
 //      size = ButtonSize.NORMAL;
 //      mode = InteractMode.OPACITY;
 //      text = "Sample text after";
 //      bgColor = Colors.deepPurpleAccent;
 //      textColor = Colors.black;
 //        padding = EdgeInsets.all(16);
+        borderRadius = 16;
     });
   }
 
@@ -78,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: textSize,
                 padding: padding,
                 disabledColor: disabledColor,
+                borderRadius: borderRadius,
                 onTapUp: (_) {
                   print("Tap up");
                 },
