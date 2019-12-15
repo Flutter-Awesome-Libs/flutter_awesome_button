@@ -28,6 +28,7 @@ class AwesomeButton extends StatefulWidget {
   final ButtonSize size;
   final Color textColor;
   final double fontSize;
+  final EdgeInsets padding;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -43,6 +44,7 @@ class AwesomeButton extends StatefulWidget {
     this.size = ButtonSize.NORMAL,
     this.textColor,
     this.fontSize,
+    this.padding,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -58,6 +60,7 @@ class AwesomeButton extends StatefulWidget {
     this.size = ButtonSize.NORMAL,
     this.textColor,
     this.fontSize,
+    this.padding,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -74,6 +77,7 @@ class AwesomeButton extends StatefulWidget {
     this.size = ButtonSize.NORMAL,
     this.textColor,
     this.fontSize,
+    this.padding,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -196,6 +200,33 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     );
   }
 
+  EdgeInsets _getButtonPadding() {
+
+    if (widget.padding != null) {
+      return widget.padding;
+    }
+
+    return EdgeInsets.only(
+      left: horizontalPadding,
+      right: horizontalPadding,
+      top: 6,
+      bottom: 6,
+    );
+  }
+
+  BoxDecoration _getButtonDecoration() {
+    return BoxDecoration(
+      color: widget._buttonType == _ButtonType.DEFAULT
+          ? _backgroundColor
+          : Colors.transparent,
+      borderRadius: BorderRadius.all(Radius.circular(4)),
+      border: Border.all(
+        width: widget._buttonType == _ButtonType.DEFAULT ? 0 : 1,
+        color: _mainBorderColor,
+      ),
+    );
+  }
+
   Widget _renderButton(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: borderAnimDuration),
@@ -212,28 +243,14 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           milliseconds: mainAnimDuration,
         ),
         child: AnimatedContainer(
-        constraints: BoxConstraints(
-          minHeight: height,
-        ),
+          constraints: BoxConstraints(
+            minHeight: height,
+          ),
           duration: Duration(
             milliseconds: mainAnimDuration,
           ),
-          padding: EdgeInsets.only(
-            left: horizontalPadding,
-            right: horizontalPadding,
-            top: 6,
-            bottom: 6,
-          ),
-          decoration: BoxDecoration(
-            color: widget._buttonType == _ButtonType.DEFAULT
-                ? _backgroundColor
-                : Colors.transparent,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-            border: Border.all(
-              width: widget._buttonType == _ButtonType.DEFAULT ? 0 : 1,
-              color: _mainBorderColor,
-            ),
-          ),
+          padding: _getButtonPadding(),
+          decoration: _getButtonDecoration(),
           child: Center(
             child: _renderButtonText(context),
             widthFactor: widget.size == ButtonSize.FULL_WIDTH ? null : 1,

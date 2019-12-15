@@ -28,24 +28,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int counter = 0;
   bool disabled = false;
-  ButtonSize size = ButtonSize.FULL_WIDTH;
+  ButtonSize size = ButtonSize.NORMAL;
   InteractMode mode = InteractMode.DEFAULT;
   String text = "Sample text before";
   Color bgColor = Colors.redAccent;
   Color textColor = Colors.white;
   double textSize;
+  EdgeInsets padding;
 
   void doDelayed() async {
     await Future.delayed(Duration(seconds: 5));
     this.setState(() {
 //      counter = 1;
 //      disabled = true;
-      size = ButtonSize.NORMAL;
+//      size = ButtonSize.NORMAL;
 //      mode = InteractMode.OPACITY;
 //      text = "Sample text after";
 //      bgColor = Colors.deepPurpleAccent;
 //      textColor = Colors.black;
-      textSize = 24;
+        padding = EdgeInsets.all(16);
     });
   }
 
@@ -74,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 disabled: disabled,
                 textColor: textColor,
                 fontSize: textSize,
+                padding: padding,
                 onTapUp: (_) {
                   print("Tap up");
                 },
