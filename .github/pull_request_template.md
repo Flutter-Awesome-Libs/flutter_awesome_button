@@ -9,10 +9,12 @@ Reference the issue that this pull request addresses, there needs to be at least
 - [ ] I updated the relevant documentations(Or filed a new issue for updating documentation)
 - [ ] I agree to follow up on all review comments and bugs that are caused because of this pull request in a timely manner
 - [ ] The issues referenced in this pull request are assigned to me, or I have explicitly stated in those issues that I will be working on them(to avoid overlap of work)
+- [ ] I have run the project on all supported platforms and verified that it works correctly
 
 ## Testing
 - [ ] All current tests(if any) still pass after making these changes
 - [ ] I have changed existing tests to accomodate for these changes
+  - [ ] All new features/changes to existing features have been added to test cases
 
 ## Release checks
 - [ ] No existing test cases were changed and no test cases failed(this is not a breaking change)
