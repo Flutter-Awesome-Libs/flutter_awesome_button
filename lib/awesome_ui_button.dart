@@ -29,6 +29,7 @@ class AwesomeButton extends StatefulWidget {
   final Color textColor;
   final double fontSize;
   final EdgeInsets padding;
+  final Color disabledColor;
 
   bool _isForcedOpacity = false;
   bool _isDestructive = false;
@@ -45,6 +46,7 @@ class AwesomeButton extends StatefulWidget {
     this.textColor,
     this.fontSize,
     this.padding,
+    this.disabledColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
   }
@@ -61,6 +63,7 @@ class AwesomeButton extends StatefulWidget {
     this.textColor,
     this.fontSize,
     this.padding,
+    this.disabledColor,
   }) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
@@ -78,6 +81,7 @@ class AwesomeButton extends StatefulWidget {
     this.textColor,
     this.fontSize,
     this.padding,
+    this.disabledColor,
   }) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
@@ -173,7 +177,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     activeOpacity = 0.3;
 
     if (widget.disabled) {
-      _backgroundColor = Color(0xFFF5F5F5);
+      _backgroundColor = widget.disabledColor ?? Color(0xFFF5F5F5);
       _textColor = Colors.black.withOpacity(0.25);
       _mainBorderColor = Color(0xFFD9D9D9);
     }
