@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_ui_button/awesome_ui_button.dart';
+import 'default_sized_buttons.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +11,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      onGenerateRoute: (settings){
+        switch(settings.name) {
+          case "/":
+            return DefaultSized.route();
+            break;
+          default:
+            return DefaultSized.route();
+            break;
+        }
+      },
+      initialRoute: "/",
     );
   }
 }
@@ -26,75 +36,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int counter = 0;
-  bool disabled = false;
-  ButtonSize size = ButtonSize.NORMAL;
-  InteractMode mode = InteractMode.DEFAULT;
-  String text = "Sample text before";
-  Color bgColor = Colors.redAccent;
-  Color textColor = Colors.white;
-  double textSize;
-  EdgeInsets padding;
-  Color disabledColor;
-  double borderRadius;
-  double activeOpacity;
-  Color activeColor;
-
-  void doDelayed() async {
-    await Future.delayed(Duration(seconds: 5));
-    this.setState(() {
-//      counter = 1;
-//        disabled = true;
-//      size = ButtonSize.NORMAL;
-//      mode = InteractMode.OPACITY;
-//      text = "Sample text after";
-//      bgColor = Colors.deepPurpleAccent;
-//      textColor = Colors.black;
-//        padding = EdgeInsets.all(16);
-      borderRadius = 16;
-      activeOpacity = 0;
-      activeColor = Colors.green;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (counter == 0) {
-      doDelayed();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AwesomeButton(
-                key: Key("SOME KEY"),
-                text: text,
-                size: size,
-                backgroundColor: bgColor,
-                interactMode: mode,
-                disabled: disabled,
-                textColor: textColor,
-                fontSize: textSize,
-                padding: padding,
-                disabledColor: disabledColor,
-                borderRadius: borderRadius,
-                activeOpacity: activeOpacity,
-                activeColor: activeColor,
-                onTapUp: (_) {
-                  print("Tap up");
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+
+        ],
+      )
     );
   }
 }

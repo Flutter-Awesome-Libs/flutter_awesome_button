@@ -41,7 +41,7 @@ class AwesomeButton extends StatefulWidget {
     this.disabled = false,
     this.interactMode = InteractMode.DEFAULT,
     @required this.text,
-    @required this.key,
+    this.key,
     this.backgroundColor,
     this.onTapUp,
     this.onTapDown,
@@ -249,10 +249,12 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       decoration: BoxDecoration(
         borderRadius:
             BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
-        border: Border.all(
-          color: _mainBorderColor.withOpacity(flareBorderOpacity),
-          width: borderWidth,
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: _mainBorderColor.withOpacity(flareBorderOpacity),
+            spreadRadius: borderWidth,
+          ),
+        ],
       ),
       child: AnimatedOpacity(
         opacity: currentOpacity,
