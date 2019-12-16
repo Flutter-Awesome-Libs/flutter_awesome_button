@@ -125,7 +125,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   // Opacity values
   double normalOpacity = 1;
   double activeOpacity;
-  double borderOpacityNormal = 0.3;
+  double borderOpacityNormal = 0;
 
   // Colors
   Color backgroundColorActive;
@@ -325,13 +325,19 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       }
 
       if (widget.size != ButtonSize.FULL_WIDTH) {
-        flareBorderOpacity = 0;
+        flareBorderOpacity = 0.45;
         borderWidth = 10;
       }
     });
 
     if (widget.size != ButtonSize.FULL_WIDTH) {
-      await Future.delayed(Duration(milliseconds: borderAnimDuration));
+      await Future.delayed(Duration(milliseconds: (borderAnimDuration / 3).round()));
+
+      setState(() {
+        flareBorderOpacity = 0;
+      });
+
+      await Future.delayed(Duration(milliseconds: (borderAnimDuration * (2/3)).round()));
 
       setState(() {
         borderWidth = borderWidthNormal;
