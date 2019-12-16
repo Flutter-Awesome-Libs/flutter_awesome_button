@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Moving to project root directory"
+
+cd ..
+
+echo "Copying website build files into target directory"
+
+cp -a example/build/web/. docs/
