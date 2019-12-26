@@ -59,7 +59,7 @@ class AwesomeButton extends StatefulWidget {
 
   AwesomeButton.outline({
     this.disabled = false,
-    this.interactMode = InteractMode.DEFAULT,
+    this.interactMode = InteractMode.OPACITY,
     @required this.text,
     this.key,
     this.backgroundColor,
@@ -318,7 +318,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
 
   void _onTapUp() async {
     setState(() {
-      if (widget.interactMode == InteractMode.DEFAULT) {
+      if (widget.interactMode == InteractMode.DEFAULT && !widget._isForcedOpacity) {
         _backgroundColor = backgroundColorNormal;
       } else {
         currentOpacity = normalOpacity;

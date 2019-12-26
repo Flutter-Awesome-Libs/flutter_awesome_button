@@ -21,14 +21,12 @@ class DefaultSized extends StatelessWidget {
                 children: <Widget>[
                   AwesomeButton(
                     text: "Default",
-                    interactMode: InteractMode.OPACITY,
                     activeOpacity: 0,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: AwesomeButton.outline(
                       text: "Outline",
-                      interactMode: InteractMode.OPACITY,
                       activeOpacity: 0,
                     ),
                   ),
@@ -36,7 +34,6 @@ class DefaultSized extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 12),
                     child: AwesomeButton.destructive(
                       text: "Destructive",
-                      interactMode: InteractMode.OPACITY,
                       activeOpacity: 0,
                     ),
                   ),
