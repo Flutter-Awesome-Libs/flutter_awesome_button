@@ -11,6 +11,7 @@ class DefaultSized extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(32),
@@ -19,66 +20,27 @@ class DefaultSized extends StatelessWidget {
               Row(
                 children: <Widget>[
                   AwesomeButton(
-                    text: "Small",
+                    text: "Default",
                     interactMode: InteractMode.OPACITY,
                     activeOpacity: 0,
-                    size: ButtonSize.SMALL,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
-                    child: AwesomeButton(
-                      text: "Normal",
+                    child: AwesomeButton.outline(
+                      text: "Outline",
                       interactMode: InteractMode.OPACITY,
                       activeOpacity: 0,
-                      backgroundColor: Colors.pinkAccent,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
-                    child: AwesomeButton(
-                      text: "Large",
+                    child: AwesomeButton.destructive(
+                      text: "Destructive",
                       interactMode: InteractMode.OPACITY,
                       activeOpacity: 0,
-                      size: ButtonSize.LARGE,
-                      backgroundColor: Colors.redAccent,
                     ),
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 16,
-                ),
-                child: Row(
-                  children: <Widget>[
-                    AwesomeButton(
-                      text: "Small",
-                      interactMode: InteractMode.OPACITY,
-                      activeOpacity: 0,
-                      size: ButtonSize.SMALL,
-                      disabled: true,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: AwesomeButton(
-                        text: "Normal",
-                        interactMode: InteractMode.OPACITY,
-                        activeOpacity: 0,
-                        disabled: true,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: AwesomeButton(
-                        text: "Large",
-                        interactMode: InteractMode.OPACITY,
-                        activeOpacity: 0,
-                        size: ButtonSize.LARGE,
-                        disabled: true,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
