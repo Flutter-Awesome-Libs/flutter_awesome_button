@@ -86,6 +86,51 @@ class Sized extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      child: AwesomeButton(
+                        text: "Default Full Width",
+                        size: ButtonSize.FULL_WIDTH,
+                      ),
+                      width: 500,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      child: AwesomeButton.outline(
+                        text: "Outline Full Width",
+                        size: ButtonSize.FULL_WIDTH,
+                      ),
+                      width: 500,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      child: AwesomeButton.destructive(
+                        text: "Detructive Full Width",
+                        size: ButtonSize.FULL_WIDTH,
+                      ),
+                      width: 500,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
