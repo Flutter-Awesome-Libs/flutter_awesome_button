@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'default_sized_buttons.dart';
+import 'sized_buttons.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         switch(settings.name) {
           case "/":
             return DefaultSized.route();
-            break;
+          case "/sized":
+            return Sized.route();
           default:
             return DefaultSized.route();
             break;
