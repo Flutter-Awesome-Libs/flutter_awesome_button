@@ -13,7 +13,12 @@ enum InteractMode {
   OPACITY,
 }
 
-enum ButtonSize { SMALL, LARGE, NORMAL, FULL_WIDTH }
+enum ButtonSize {
+  SMALL,
+  LARGE,
+  NORMAL,
+  FULL_WIDTH,
+}
 
 // ignore: must_be_immutable
 class AwesomeButton extends StatefulWidget {
@@ -318,7 +323,8 @@ class _AwesomeButtonState extends State<AwesomeButton> {
 
   void _onTapUp() async {
     setState(() {
-      if (widget.interactMode == InteractMode.DEFAULT && !widget._isForcedOpacity) {
+      if (widget.interactMode == InteractMode.DEFAULT &&
+          !widget._isForcedOpacity) {
         _backgroundColor = backgroundColorNormal;
       } else {
         currentOpacity = normalOpacity;
@@ -331,13 +337,15 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     });
 
     if (widget.size != ButtonSize.FULL_WIDTH) {
-      await Future.delayed(Duration(milliseconds: (borderAnimDuration / 3).round()));
+      await Future.delayed(
+          Duration(milliseconds: (borderAnimDuration / 3).round()));
 
       setState(() {
         flareBorderOpacity = 0;
       });
 
-      await Future.delayed(Duration(milliseconds: (borderAnimDuration * (2/3)).round()));
+      await Future.delayed(
+          Duration(milliseconds: (borderAnimDuration * (2 / 3)).round()));
 
       setState(() {
         borderWidth = borderWidthNormal;
