@@ -1,8 +1,7 @@
 name: awesome_ui_button
 description: A quick way to make a good looking button with a little flair, just import and use.
 version: 1.0.0
-author:
-homepage:
+homepage: https://github.com/Flutter-Awesome-Libs/flutter_awesome_button
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
