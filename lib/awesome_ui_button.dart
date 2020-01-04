@@ -197,7 +197,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     if (widget.disabled) {
       _backgroundColor = widget.disabledColor ?? Color(0xFFF5F5F5);
       _textColor = Colors.black.withOpacity(0.25);
-      _mainBorderColor = Color(0xFFD9D9D9);
+      _mainBorderColor = widget._buttonType == _ButtonType.OUTLINE ? widget.disabledColor ?? Color(0xFFD9D9D9) : Color(0xFFD9D9D9);
     }
   }
 
@@ -289,7 +289,6 @@ class _AwesomeButtonState extends State<AwesomeButton> {
   Widget build(BuildContext context) {
     _initVars();
     return GestureDetector(
-      key: widget.key,
       child: _renderButton(context),
       onTapDown: (TapDownDetails details) {
         if (widget.disabled) {
