@@ -1,7 +1,4 @@
-on:
-  create:
-    tags:
-      - 'd*'
+on: [push]
 name: build
 jobs:
   test:
