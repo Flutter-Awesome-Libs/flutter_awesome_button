@@ -376,7 +376,8 @@ void main() {
     expect(container.opacity, equals(1));
   });
 
-  testWidgets("Test that tap down and up are called, and in the correct order", (tester) async {
+  testWidgets("Test that tap down and up are called, and in the correct order",
+      (tester) async {
     // The widget uses futures, without runAsync the test will throw a pending timer error
     await tester.runAsync(() async {
       String text = "Test";
@@ -406,7 +407,9 @@ void main() {
     });
   });
 
-  testWidgets("Test that tap down and up are not called when button is disabled", (tester) async {
+  testWidgets(
+      "Test that tap down and up are not called when button is disabled",
+      (tester) async {
     // The widget uses futures, without runAsync the test will throw a pending timer error
     await tester.runAsync(() async {
       String text = "Test";

@@ -1,3 +1,49 @@
+/// This library allows you to add a good looking button without having to write code and manage animations yourself.
+///
+/// Custom types of this library:
+///   [InteractMode] - decides the type of interaction the button uses
+///     - DEFAULT: The color of the button changes when the user presses it
+///     - OPACITY: The opacity of the button changes when the user presses it
+///
+///   [ButtonSize] - The size of the button
+///     - NORMAL
+///     - SMALL
+///     - LARGE
+///     - FULL_WIDTH: The button fills with the width of its parent
+///
+/// Sample Usage
+///
+/// - Using the default button
+///     ```
+///       AwesomeButton(
+///         text: "Press me",
+///         onTapUp: (_) {
+///           // do something after the user has lifted their finger
+///         },
+///       )
+///     ```
+///
+/// - Using the button with outline instead of background color
+///   ```
+///     AwesomeButton.outline(
+///       text: "Press me",
+///       onTapUp: (_) {
+///         // do something after the user has lifted their finger
+///       },
+///     )
+///   ```
+///
+/// - Using the destructive button: This button renders with a reddish color, commonly used to provide negative options like 'cancel'
+///     ```
+///       AwesomeButton.destructive(
+///         text: "close",
+///         onTapUp: (_) {
+///           // do something after the user has lifted their finger
+///         },
+///       )
+///
+///
+/// For full documentation visit https://flutterawesome.dev/docs/components/button
 library awesome_ui_button;
 
 import 'package:flutter/material.dart';
@@ -8,11 +54,13 @@ enum _ButtonType {
   OUTLINE,
 }
 
+/// Type for the kind of interaction the button should use when the user interacts with it.
 enum InteractMode {
   DEFAULT,
   OPACITY,
 }
 
+/// Type for the size of the button
 enum ButtonSize {
   SMALL,
   LARGE,
@@ -23,20 +71,56 @@ enum ButtonSize {
 // ignore: must_be_immutable
 class AwesomeButton extends StatefulWidget {
   _ButtonType _buttonType;
+
+  /// This decides whether or not the button should respond to pointer events. When set to true, the button will ignore touches.
+  /// false by default.
   final bool disabled;
+
+  /// The type of interaction the button should use when it receives a pointer event. Depending on the value the button will either
+  /// change it's background color when pressed or opacity. [InteractMode.DEFAULT] by default.
   final InteractMode interactMode;
+
+  /// (required) This sets the text of the button.
   final String text;
+
+  /// The key that is set to the root widget. null by default.
   final Key key;
+
+  /// This allows you to set the background color of the button.
+  /// NOTE: for [InteractMode.DEFAULT] the background color when the user presses the button changes according to the background color
+  /// provided.
   final Color backgroundColor;
+
+  /// Callback that is executed when the button receives when the pointer is lifted from the button i.e the user lifts their finger.
+  /// Passes [TapUpDetails] as a parameter
   final GestureTapUpCallback onTapUp;
+
+  /// Callback that is executed when the button receives when the button receives a pointer down event i.e the user presses down on it.
+  /// Passes [TapDownDetails] as a parameter
   final GestureTapDownCallback onTapDown;
+
+  /// Sets the size of the button, [ButtonSize] value. [ButtonSize.NORMAL] by default.
   final ButtonSize size;
+
+  /// Sets the color of the text
   final Color textColor;
+
+  /// Sets the size of the text in the button
   final double fontSize;
+
+  /// Allows you to customise the padding of the button
   final EdgeInsets padding;
+
+  /// Allows you to change the color of the button when it is disabled
   final Color disabledColor;
+
+  /// Allows you to customise the value of the radius for the border
   final double borderRadius;
+
+  /// Allows you to change the opacity of the button when the user touches it with [InteractMode.OPACITY]
   final double activeOpacity;
+
+  /// Allows you to change the background color of the button when the user touches it with [InteractMode.DEFAULT]
   final Color activeColor;
 
   bool _isForcedOpacity = false;
@@ -197,7 +281,9 @@ class _AwesomeButtonState extends State<AwesomeButton> {
     if (widget.disabled) {
       _backgroundColor = widget.disabledColor ?? Color(0xFFF5F5F5);
       _textColor = Colors.black.withOpacity(0.25);
-      _mainBorderColor = widget._buttonType == _ButtonType.OUTLINE ? widget.disabledColor ?? Color(0xFFD9D9D9) : Color(0xFFD9D9D9);
+      _mainBorderColor = widget._buttonType == _ButtonType.OUTLINE
+          ? widget.disabledColor ?? Color(0xFFD9D9D9)
+          : Color(0xFFD9D9D9);
     }
   }
 

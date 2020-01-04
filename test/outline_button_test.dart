@@ -52,109 +52,110 @@ void main() {
 
   testWidgets(
       "Test that custom background colors are used by the widget instead of defaults",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                backgroundColor: Colors.red,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            backgroundColor: Colors.red,
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder containerFinder = find.byType(AnimatedContainer);
-        AnimatedContainer container = containerFinder.last.evaluate().single.widget;
-        expect((container.decoration as BoxDecoration).color, equals(Colors.transparent));
-        expect((container.decoration as BoxDecoration).border.bottom.color,
-            equals(Colors.red));
-        expect((container.decoration as BoxDecoration).border.top.color,
-            equals(Colors.red));
-      });
+    Finder containerFinder = find.byType(AnimatedContainer);
+    AnimatedContainer container = containerFinder.last.evaluate().single.widget;
+    expect((container.decoration as BoxDecoration).color,
+        equals(Colors.transparent));
+    expect((container.decoration as BoxDecoration).border.bottom.color,
+        equals(Colors.red));
+    expect((container.decoration as BoxDecoration).border.top.color,
+        equals(Colors.red));
+  });
 
   testWidgets(
       "Test that disabled buttons use the default color when a custom one is not provided",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                disabled: true,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            disabled: true,
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder containerFinder = find.byType(AnimatedContainer);
-        AnimatedContainer container = containerFinder.last.evaluate().single.widget;
-        expect((container.decoration as BoxDecoration).color,
-            equals(Colors.transparent));
-        expect((container.decoration as BoxDecoration).border.bottom.color,
-            equals(Color(0xFFD9D9D9)));
-        expect((container.decoration as BoxDecoration).border.top.color,
-            equals(Color(0xFFD9D9D9)));
-      });
+    Finder containerFinder = find.byType(AnimatedContainer);
+    AnimatedContainer container = containerFinder.last.evaluate().single.widget;
+    expect((container.decoration as BoxDecoration).color,
+        equals(Colors.transparent));
+    expect((container.decoration as BoxDecoration).border.bottom.color,
+        equals(Color(0xFFD9D9D9)));
+    expect((container.decoration as BoxDecoration).border.top.color,
+        equals(Color(0xFFD9D9D9)));
+  });
 
   testWidgets("Test that key provided is assigned to the root widget",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                key: Key("TestKey"),
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            key: Key("TestKey"),
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder containerFinder = find.byType(AwesomeButton);
-        AwesomeButton root = containerFinder.first.evaluate().single.widget;
-        expect(root.key, equals(Key("TestKey")));
-      });
+    Finder containerFinder = find.byType(AwesomeButton);
+    AwesomeButton root = containerFinder.first.evaluate().single.widget;
+    expect(root.key, equals(Key("TestKey")));
+  });
 
   testWidgets("Test that provided font size property is applied",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                fontSize: 26,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            fontSize: 26,
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder textFinder = find.text(text);
-        Text textWidget = textFinder.first.evaluate().single.widget;
-        expect(textWidget.style.fontSize, equals(26));
-      });
+    Finder textFinder = find.text(text);
+    Text textWidget = textFinder.first.evaluate().single.widget;
+    expect(textWidget.style.fontSize, equals(26));
+  });
 
   testWidgets("Test that provided font color property is applied",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                textColor: Colors.red,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            textColor: Colors.red,
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder textFinder = find.text(text);
-        Text textWidget = textFinder.first.evaluate().single.widget;
-        expect(textWidget.style.color, equals(Colors.red));
-      });
+    Finder textFinder = find.text(text);
+    Text textWidget = textFinder.first.evaluate().single.widget;
+    expect(textWidget.style.color, equals(Colors.red));
+  });
 
   testWidgets("Test that provided padding property is applied", (tester) async {
     String text = "Test";
@@ -175,28 +176,29 @@ void main() {
   });
 
   testWidgets("Test that provided disabled color property is applied",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                disabled: true,
-                disabledColor: Colors.red,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            disabled: true,
+            disabledColor: Colors.red,
           ),
-        );
+        ),
+      ),
+    );
 
-        Finder containerFinder = find.byType(AnimatedContainer);
-        AnimatedContainer container = containerFinder.last.evaluate().single.widget;
-        expect((container.decoration as BoxDecoration).color, equals(Colors.transparent));
-        expect((container.decoration as BoxDecoration).border.bottom.color,
-            equals(Colors.red));
-        expect((container.decoration as BoxDecoration).border.top.color,
-            equals(Colors.red));
-      });
+    Finder containerFinder = find.byType(AnimatedContainer);
+    AnimatedContainer container = containerFinder.last.evaluate().single.widget;
+    expect((container.decoration as BoxDecoration).color,
+        equals(Colors.transparent));
+    expect((container.decoration as BoxDecoration).border.bottom.color,
+        equals(Colors.red));
+    expect((container.decoration as BoxDecoration).border.top.color,
+        equals(Colors.red));
+  });
 
   testWidgets("Test that provided border radius is applied", (tester) async {
     String text = "Test";
@@ -223,109 +225,109 @@ void main() {
 
   testWidgets(
       "Test that for interact mode opacity, on press the opacity changes accordingly",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                interactMode: InteractMode.OPACITY,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            interactMode: InteractMode.OPACITY,
           ),
-        );
+        ),
+      ),
+    );
 
-        await tester.startGesture(tester.getCenter(find.text(text)));
-        await tester.pump();
+    await tester.startGesture(tester.getCenter(find.text(text)));
+    await tester.pump();
 
-        Finder animatedContainerFinder = find.byType(AnimatedOpacity);
-        AnimatedOpacity container =
-            animatedContainerFinder.last.evaluate().single.widget;
-        expect(container.opacity, equals(0.3));
-      });
+    Finder animatedContainerFinder = find.byType(AnimatedOpacity);
+    AnimatedOpacity container =
+        animatedContainerFinder.last.evaluate().single.widget;
+    expect(container.opacity, equals(0.3));
+  });
 
   testWidgets(
       "Test that given active opacity for interact mode opacity, on press the opacity changes accordingly",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                interactMode: InteractMode.OPACITY,
-                activeOpacity: 0.1,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            interactMode: InteractMode.OPACITY,
+            activeOpacity: 0.1,
           ),
-        );
+        ),
+      ),
+    );
 
-        await tester.startGesture(tester.getCenter(find.text(text)));
-        await tester.pump();
+    await tester.startGesture(tester.getCenter(find.text(text)));
+    await tester.pump();
 
-        Finder animatedContainerFinder = find.byType(AnimatedOpacity);
-        AnimatedOpacity container =
-            animatedContainerFinder.last.evaluate().single.widget;
-        expect(container.opacity, equals(0.1));
-      });
+    Finder animatedContainerFinder = find.byType(AnimatedOpacity);
+    AnimatedOpacity container =
+        animatedContainerFinder.last.evaluate().single.widget;
+    expect(container.opacity, equals(0.1));
+  });
 
   testWidgets(
       "Test that on pressing the button the background color does not change when disabled",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                disabled: true,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            disabled: true,
           ),
-        );
+        ),
+      ),
+    );
 
-        await tester.startGesture(tester.getCenter(find.text(text)));
-        await tester.pump();
+    await tester.startGesture(tester.getCenter(find.text(text)));
+    await tester.pump();
 
-        Finder animatedContainerFinder = find.byType(AnimatedContainer);
-        AnimatedContainer container =
-            animatedContainerFinder.last.evaluate().single.widget;
-        expect((container.decoration as BoxDecoration).color,
-            equals(Colors.transparent));
-        expect((container.decoration as BoxDecoration).border.bottom.color,
-            equals(Color(0xffd9d9d9)));
-        expect((container.decoration as BoxDecoration).border.top.color,
-            equals(Color(0xffd9d9d9)));
-
-      });
+    Finder animatedContainerFinder = find.byType(AnimatedContainer);
+    AnimatedContainer container =
+        animatedContainerFinder.last.evaluate().single.widget;
+    expect((container.decoration as BoxDecoration).color,
+        equals(Colors.transparent));
+    expect((container.decoration as BoxDecoration).border.bottom.color,
+        equals(Color(0xffd9d9d9)));
+    expect((container.decoration as BoxDecoration).border.top.color,
+        equals(Color(0xffd9d9d9)));
+  });
 
   testWidgets(
       "Test that for interact mode opacity, on press the opacity does not change when disabled",
-          (tester) async {
-        String text = "Test";
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Material(
-              child: AwesomeButton.outline(
-                text: text,
-                interactMode: InteractMode.OPACITY,
-                disabled: true,
-              ),
-            ),
+      (tester) async {
+    String text = "Test";
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: AwesomeButton.outline(
+            text: text,
+            interactMode: InteractMode.OPACITY,
+            disabled: true,
           ),
-        );
+        ),
+      ),
+    );
 
-        await tester.startGesture(tester.getCenter(find.text(text)));
-        await tester.pump();
+    await tester.startGesture(tester.getCenter(find.text(text)));
+    await tester.pump();
 
-        Finder animatedContainerFinder = find.byType(AnimatedOpacity);
-        AnimatedOpacity container =
-            animatedContainerFinder.last.evaluate().single.widget;
-        expect(container.opacity, equals(1));
-      });
+    Finder animatedContainerFinder = find.byType(AnimatedOpacity);
+    AnimatedOpacity container =
+        animatedContainerFinder.last.evaluate().single.widget;
+    expect(container.opacity, equals(1));
+  });
 
-  testWidgets("Test that tap down and up are called, and in the correct order", (tester) async {
+  testWidgets("Test that tap down and up are called, and in the correct order",
+      (tester) async {
     // The widget uses futures, without runAsync the test will throw a pending timer error
     await tester.runAsync(() async {
       String text = "Test";
@@ -355,7 +357,9 @@ void main() {
     });
   });
 
-  testWidgets("Test that tap down and up are not called when button is disabled", (tester) async {
+  testWidgets(
+      "Test that tap down and up are not called when button is disabled",
+      (tester) async {
     // The widget uses futures, without runAsync the test will throw a pending timer error
     await tester.runAsync(() async {
       String text = "Test";
