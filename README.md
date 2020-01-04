@@ -1,14 +1,6 @@
 # awesome_ui_button
 
-A new Flutter package.
+![](https://github.com/Flutter-Awesome-Libs/flutter_awesome_button/workflows/Test/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Flutter-Awesome-Libs/flutter_awesome_button/blob/master/LICENSE)
 
-## Getting Started
-
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+This package allows you to add a good looking button to your application easily and without having to write a lot of code yourself, simply import and start using.
