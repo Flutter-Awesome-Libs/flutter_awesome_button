@@ -16,4 +16,11 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter doctor
+      - run: rm -rf .github/
+      - run: rm -rf .gitignore
+      - run: rm -rf .metadata
+      - run: rm -rf docs/
+      - run: rm -rf example/
+      - run: rm -rf scripts/
       - run: ls -a
+      - run: flutter pub publish --dry-run
