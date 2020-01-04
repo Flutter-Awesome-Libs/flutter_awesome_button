@@ -10,9 +10,10 @@ cp CHANGELOG.md temp/CHANGELOG.md
 cp README.md temp/README.md
 cp LICENSE temp/LICENSE
 cp -r lib/ temp/lib/
+cp ir example/ temp/example
 cp pubspec.yaml temp/pubspec.yaml
 cp -r test/ temp/test/
 
-cd temp && flutter pub publish --dry-run
+cd temp && flutter pub publish
 
 cd ../ && rm -rf temp/
