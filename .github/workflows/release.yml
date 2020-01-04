@@ -23,4 +23,4 @@ jobs:
       - run: rm -rf example/
       - run: rm -rf scripts/
       - run: ls -a
-      - run: flutter pub publish --dry-run
+      - run: flutter pub publish
