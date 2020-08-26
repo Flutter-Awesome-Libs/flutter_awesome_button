@@ -142,7 +142,7 @@ class AwesomeButton extends StatefulWidget {
     this.borderRadius,
     this.activeOpacity,
     this.activeColor,
-  }) {
+  }) : super(key: key) {
     this._buttonType = _ButtonType.DEFAULT;
   }
 
@@ -162,7 +162,7 @@ class AwesomeButton extends StatefulWidget {
     this.borderRadius,
     this.activeOpacity,
     this.activeColor,
-  }) {
+  }) : super(key: key) {
     this._buttonType = _ButtonType.OUTLINE;
     this._isForcedOpacity = true;
   }
@@ -183,7 +183,7 @@ class AwesomeButton extends StatefulWidget {
     this.borderRadius,
     this.activeOpacity,
     this.activeColor,
-  }) {
+  }) : super(key: key) {
     this._buttonType = _ButtonType.DEFAULT;
     this._isDestructive = true;
   }
