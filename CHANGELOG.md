@@ -1,4 +1,4 @@
-## [1.0.1 + 1.0.2] - Aug 2020
+## [1.0.1 + 1.0.2 + 1.0.3] - Aug 2020
 
 * Fixes an issue where colors would not reset correctly when disabled is toggled from true to false
 * Honors key being passed in constructor

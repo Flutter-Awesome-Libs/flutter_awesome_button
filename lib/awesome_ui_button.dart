@@ -396,7 +396,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (widget.disabled) {
           return;
         }
-        _isPressedDown = true;
+        _isPressedDown = false;
         _onTapUp();
 
         if (widget.onTapUp != null) {
