@@ -197,6 +197,7 @@ class AwesomeButton extends StatefulWidget {
 class _AwesomeButtonState extends State<AwesomeButton> {
   // State Vars
   Color _backgroundColor;
+  bool _isPressedDown = false;
 
   // Animation durations
   int borderAnimDuration = 250;
@@ -284,13 +285,16 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       _mainBorderColor = widget._buttonType == _ButtonType.OUTLINE
           ? widget.disabledColor ?? Color(0xFFD9D9D9)
           : Color(0xFFD9D9D9);
-    } else {
+      currentOpacity = normalOpacity;
+      flareBorderOpacity = borderOpacityNormal;
+    } else if (!_isPressedDown) {
       _backgroundColor = backgroundColorNormal;
       _mainBorderColor = _backgroundColor;
-      borderWidth = borderWidthNormal;
       currentOpacity = normalOpacity;
       flareBorderOpacity = borderOpacityNormal;
     }
+
+    borderWidth = borderWidthNormal;
   }
 
   Widget _renderButtonText(BuildContext context) {
@@ -376,6 +380,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
           return;
         }
         setState(() {
+          _isPressedDown = true;
           if (widget.interactMode == InteractMode.DEFAULT &&
               !widget._isForcedOpacity) {
             _backgroundColor = backgroundColorActive;
@@ -391,7 +396,7 @@ class _AwesomeButtonState extends State<AwesomeButton> {
         if (widget.disabled) {
           return;
         }
-
+        _isPressedDown = true;
         _onTapUp();
 
         if (widget.onTapUp != null) {

@@ -1,7 +1,8 @@
-## [1.0.1] - Aug 2020
+## [1.0.1 + 1.0.2] - Aug 2020
 
 * Fixes an issue where colors would not reset correctly when disabled is toggled from true to false
 * Honors key being passed in constructor
+* Fixes issue with tap behavior
 
 ## [1.0.0] - Jan 2020
 

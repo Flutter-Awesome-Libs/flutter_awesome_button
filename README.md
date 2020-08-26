@@ -10,7 +10,7 @@ This package allows you to add a good looking button to your application easily 
 Add this to your pubspec.yaml
 ```
 dependencies:
-  awesome_ui_button: ^1.0.1
+  awesome_ui_button: ^1.0.2
 ```
 
 ## Installing
