@@ -284,18 +284,13 @@ class _AwesomeButtonState extends State<AwesomeButton> {
       _mainBorderColor = widget._buttonType == _ButtonType.OUTLINE
           ? widget.disabledColor ?? Color(0xFFD9D9D9)
           : Color(0xFFD9D9D9);
+    } else {
+      _backgroundColor = backgroundColorNormal;
+      _mainBorderColor = _backgroundColor;
+      borderWidth = borderWidthNormal;
+      currentOpacity = normalOpacity;
+      flareBorderOpacity = borderOpacityNormal;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initVars();
-    _backgroundColor = backgroundColorNormal;
-    _mainBorderColor = _backgroundColor;
-    borderWidth = borderWidthNormal;
-    currentOpacity = normalOpacity;
-    flareBorderOpacity = borderOpacityNormal;
   }
 
   Widget _renderButtonText(BuildContext context) {
